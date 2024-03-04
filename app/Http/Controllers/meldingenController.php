@@ -7,11 +7,19 @@ $melder = $_POST['melder'];
 
 echo $attractie . " / " . $capaciteit . " / " . $melder;
 
-//1. Verbinding
+//verbinding maken
 require_once '../../../config/conn.php';
+//query
+$query = "INSERT TO meldingen (attractie, capaciteit, melder)
+VALUES(:attractie, :capaciteit, :melder)";
+//prepare
+$statement = $conn->prepare($query);
+//execute
+$statement->execute([
+    ":attractie" => $attractie,
+    ":capaciteit" => $capaciteit,
+    ":melder" => $melder,
+]);
 
-//2. Query
+$items = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-//3. Prepare
-
-//4. Execute
